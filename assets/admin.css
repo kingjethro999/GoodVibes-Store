@@ -1,0 +1,238 @@
+/* admin.css - Good Vibes admin styles */
+:root {
+  --gv-purple: #1c0935;
+  --gv-magenta: #6a00f4;
+  --gv-accent: #ffe600;
+  --gv-muted: #f6f0ff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  color: #222;
+}
+
+/* Topbar */
+.admin-topbar {
+  background: linear-gradient(90deg, var(--gv-purple), var(--gv-magenta));
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.admin-topbar .brand-text {
+  color: var(--gv-accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.admin-topbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-topbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Layout */
+.admin-wrapper {
+  padding-top: 64px;
+  min-height: calc(100vh - 64px);
+}
+
+.admin-sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #fff, var(--gv-muted));
+  border-right: 1px solid #eee;
+  min-height: calc(100vh - 64px);
+  position: fixed;
+  top: 64px;
+  left: 0;
+  padding-top: 20px;
+  transition: transform 0.3s ease;
+}
+
+.admin-sidebar .nav-link {
+  color: #333;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin: 6px;
+}
+
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:hover {
+  background: linear-gradient(90deg, var(--gv-magenta), var(--gv-purple));
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(106, 0, 244, 0.12);
+}
+
+/* main content */
+.admin-main {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  padding-top: 30px;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* Dashboard cards */
+.gv-card {
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff, #f7f3ff);
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(27, 0, 51, 0.06);
+}
+
+.gv-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.gv-stat {
+  flex: 1 1 200px;
+}
+
+/* small helpers */
+.badge-gv {
+  background: var(--gv-magenta);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablet and below (992px) */
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    z-index: 1025;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .admin-sidebar.show {
+    transform: translateX(0);
+  }
+
+  /* Backdrop for mobile sidebar */
+  .admin-sidebar.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  .admin-main {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px 15px;
+  }
+
+  .gv-card {
+    padding: 20px;
+  }
+
+  .gv-stats {
+    gap: 12px;
+  }
+
+  .gv-stat {
+    flex: 1 1 100%;
+  }
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 575.98px) {
+  .admin-topbar {
+    height: 56px;
+  }
+
+  .admin-topbar .brand-text {
+    font-size: 0.95rem;
+  }
+
+  .admin-wrapper {
+    padding-top: 56px;
+  }
+
+  .admin-sidebar {
+    top: 56px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .admin-main {
+    padding: 15px 10px;
+  }
+
+  .gv-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  /* Make tables scroll horizontally on mobile */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Adjust form layouts */
+  .row.g-3>[class*="col-"] {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Stack action buttons vertically */
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+  }
+
+  /* Adjust receipt preview size */
+  .receipt-preview {
+    max-width: 100%;
+  }
+}
+
+/* Very small mobile (400px and below) */
+@media (max-width: 400px) {
+  .admin-topbar .brand-text {
+    display: none;
+  }
+
+  .gv-card {
+    padding: 12px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
