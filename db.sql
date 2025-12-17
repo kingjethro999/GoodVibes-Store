@@ -73,3 +73,21 @@ CREATE TABLE reciepts (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (order_id) REFERENCES orders(id)
 );
+
+-- Table for Merch (separate from regular products)
+CREATE TABLE merch (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_name VARCHAR(255) NOT NULL,
+  category VARCHAR(100),
+  description TEXT,
+  price DECIMAL(10,2),
+  image VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Example Merch Items
+INSERT INTO merch (product_name, category, description, price, image)
+VALUES
+('Good Vibes Cap', 'Accessories', 'Stylish embroidered cap with Good Vibes logo.', 5500, 'uploads/hoodie.jpg'),
+('Vibe Sticker Pack', 'Accessories', 'Set of 10 high-quality vinyl stickers.', 2000, 'uploads/stickers.jpg'),
+('Good Vibes Mug', 'Accessories', 'Ceramic coffee mug with vibrant design.', 4500, 'uploads/mug.jpg');

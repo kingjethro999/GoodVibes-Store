@@ -1,7 +1,15 @@
 <?php
 session_start();
 include 'db_connect.php';
-$result = $conn->query("SELECT * FROM products ORDER BY id DESC");
+$products = $conn->query("SELECT * FROM products ORDER BY id DESC");
+$merch = $conn->query("SELECT * FROM merch ORDER BY id DESC");
+
+// Check URL parameter for active tab
+$activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'collections';
+$collectionsActive = ($activeTab === 'collections') ? 'active' : '';
+$merchActive = ($activeTab === 'merch') ? 'active' : '';
+$collectionsShow = ($activeTab === 'collections') ? 'show active' : '';
+$merchShow = ($activeTab === 'merch') ? 'show active' : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +48,51 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
       padding: 15px 0;
     }
 
+    /* Sticky Tab Navigation */
+    .tab-navigation {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .tab-navigation .nav-tabs {
+      border-bottom: none;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+    }
+
+    .tab-navigation .nav-tabs .nav-link {
+      border: none;
+      color: #666;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 12px 40px;
+      margin: 0 10px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .tab-navigation .nav-tabs .nav-link:hover {
+      background: #f3e8ff;
+      color: #6a00b9;
+    }
+
+    .tab-navigation .nav-tabs .nav-link.active {
+      background: linear-gradient(90deg, #6a00b9, #c30075);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(106, 0, 185, 0.3);
+    }
+
+    /* Tab content */
+    .tab-pane {
+      min-height: 400px;
+    }
+
     .product-card {
       background: linear-gradient(145deg, #ffffff, #f3e8ff);
       border: none;
@@ -48,6 +101,7 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: all 0.4s ease;
       position: relative;
+      height: 100%;
     }
     .product-card:hover {
       transform: translateY(-8px) scale(1.02);
@@ -87,9 +141,12 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
       border-radius: 30px;
       padding: 8px 18px;
       transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
     .btn-buy:hover {
       background: var(--accent4);
+      color: white;
     }
 
     /* Image viewer modal */
@@ -136,6 +193,14 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
       font-size: 20px;
       cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+      .tab-navigation .nav-tabs .nav-link {
+        font-size: 1rem;
+        padding: 10px 25px;
+        margin: 0 5px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -149,7 +214,7 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="/index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
           <li class="nav-item"><a class="nav-link active" href="products.php">Products</a></li>
           <?php if (isset($_SESSION['user_id'])): ?>
@@ -172,25 +237,71 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
     </div>
   </nav>
 
-  <!-- Products from DB -->
+  <!-- Sticky Tab Navigation -->
+  <div class="tab-navigation">
+    <div class="container">
+      <ul class="nav nav-tabs" id="productTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link <?php echo $collectionsActive; ?>" id="collections-tab" data-bs-toggle="tab" data-bs-target="#collections" type="button" role="tab" data-tab="collections">
+            <i class="bi bi-grid"></i> Collections
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link <?php echo $merchActive; ?>" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch" type="button" role="tab" data-tab="merch">
+            <i class="bi bi-bag"></i> Merch
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
   <section class="py-5">
     <div class="container">
-      <h2 class="fw-bold text-center mb-5" style="color:#3d0066;">Our Collection</h2>
-      <div class="row g-4">
-        <?php while($row = $result->fetch_assoc()): ?>
-          <div class="col-md-4">
-            <div class="product-card">
-              <img src="<?php echo $row['image']; ?>" alt="<?php echo $row['product_name']; ?>" class="view-img">
-              <div class="product-info">
-                <h5><?php echo $row['product_name']; ?></h5>
-                <p><?php echo $row['category']; ?></p>
-                <p><?php echo $row['description']; ?></p>
-                <div class="price">₦<?php echo number_format($row['price']); ?></div>
-                <button class="btn-buy mt-2">Buy Now</button>
+      <div class="tab-content" id="productTabContent">
+        
+        <!-- Collections Tab -->
+        <div class="tab-pane fade <?php echo $collectionsShow; ?>" id="collections" role="tabpanel">
+          <h2 class="fw-bold text-center mb-5" style="color:#3d0066;">Our Collections</h2>
+          <div class="row g-4" id="collectionsGrid">
+            <?php while($row = $products->fetch_assoc()): ?>
+              <div class="col-md-4">
+                <div class="product-card">
+                  <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" class="view-img">
+                  <div class="product-info">
+                    <h5><?php echo htmlspecialchars($row['product_name']); ?></h5>
+                    <p><?php echo htmlspecialchars($row['category'] ?? ''); ?></p>
+                    <p><?php echo htmlspecialchars($row['description'] ?? ''); ?></p>
+                    <div class="price">₦<?php echo number_format($row['price']); ?></div>
+                    <a href="product_details.php?id=<?php echo $row['id']; ?>&type=product" class="btn-buy mt-2">View Details</a>
+                  </div>
+                </div>
               </div>
-            </div>
+            <?php endwhile; ?>
           </div>
-        <?php endwhile; ?>
+        </div>
+
+        <!-- Merch Tab -->
+        <div class="tab-pane fade <?php echo $merchShow; ?>" id="merch" role="tabpanel">
+          <h2 class="fw-bold text-center mb-5" style="color:#3d0066;">Our Merch</h2>
+          <div class="row g-4" id="merchGrid">
+            <?php while($item = $merch->fetch_assoc()): ?>
+              <div class="col-md-4">
+                <div class="product-card">
+                  <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="view-img">
+                  <div class="product-info">
+                    <h5><?php echo htmlspecialchars($item['product_name']); ?></h5>
+                    <p><?php echo htmlspecialchars($item['category'] ?? ''); ?></p>
+                    <p><?php echo htmlspecialchars($item['description'] ?? ''); ?></p>
+                    <div class="price">₦<?php echo number_format($item['price']); ?></div>
+                    <a href="product_details.php?id=<?php echo $item['id']; ?>&type=merch" class="btn-buy mt-2">View Details</a>
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -208,13 +319,26 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
     <p>&copy; 2025 Good Vibes. All Rights Reserved.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const cards = document.querySelectorAll('.view-img');
+    // Update URL when tab is clicked
+    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        const url = new URL(window.location);
+        url.searchParams.set('tab', tabName);
+        window.history.pushState({}, '', url);
+      });
+    });
+
+    // Image viewer
+    const imgCards = document.querySelectorAll('.view-img');
     const viewer = document.getElementById('imageViewer');
     const viewerImg = document.getElementById('viewerImg');
     const closeBtn = document.getElementById('closeBtn');
 
-    cards.forEach(card => {
+    imgCards.forEach(card => {
       card.addEventListener('click', () => {
         viewerImg.src = card.src;
         viewer.classList.add('active');
@@ -224,6 +348,41 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
     viewer.addEventListener('click', e => {
       if(e.target === viewer) viewer.classList.remove('active');
     });
+
+    // Mobile swipe support for tabs
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const tabContent = document.getElementById('productTabContent');
+    const collectionsTab = document.getElementById('collections-tab');
+    const merchTab = document.getElementById('merch-tab');
+
+    tabContent.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    tabContent.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - go to merch
+          if (collectionsTab.classList.contains('active')) {
+            merchTab.click();
+          }
+        } else {
+          // Swipe right - go to collections
+          if (merchTab.classList.contains('active')) {
+            collectionsTab.click();
+          }
+        }
+      }
+    }
   </script>
 </body>
 </html>

@@ -20,16 +20,25 @@ $userResult = $userStmt->get_result();
 $userData = $userResult->fetch_assoc();
 $userStmt->close();
 
-// Get product ID from URL
+// Get product ID and type from URL
 $productId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$productType = isset($_GET['type']) ? $_GET['type'] : 'product'; // Default to 'product' for backward compatibility
 
 if ($productId <= 0) {
   header('Location: products.php');
   exit;
 }
 
-// Fetch product details
-$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+// Validate type
+if (!in_array($productType, ['product', 'merch'])) {
+  $productType = 'product';
+}
+
+// Determine which table to query
+$tableName = ($productType === 'merch') ? 'merch' : 'products';
+
+// Fetch product/merch details
+$stmt = $conn->prepare("SELECT * FROM $tableName WHERE id = ?");
 $stmt->bind_param('i', $productId);
 $stmt->execute();
 $result = $stmt->get_result();

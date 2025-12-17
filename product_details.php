@@ -2,16 +2,25 @@
 session_start();
 include 'db_connect.php';
 
-// Get product ID from URL
+// Get product ID and type from URL
 $productId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$productType = isset($_GET['type']) ? $_GET['type'] : 'product'; // Default to 'product' for backward compatibility
 
 if ($productId <= 0) {
   header('Location: products.php');
   exit;
 }
 
-// Fetch product details
-$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+// Validate type
+if (!in_array($productType, ['product', 'merch'])) {
+  $productType = 'product';
+}
+
+// Determine which table to query
+$tableName = ($productType === 'merch') ? 'merch' : 'products';
+
+// Fetch product/merch details
+$stmt = $conn->prepare("SELECT * FROM $tableName WHERE id = ?");
 $stmt->bind_param('i', $productId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -23,9 +32,9 @@ if (!$product) {
   exit;
 }
 
-// Get related products (same category, excluding current product)
+// Get related products/merch (same category, same type, excluding current item)
 $relatedProducts = $conn->query("
-  SELECT * FROM products 
+  SELECT * FROM $tableName 
   WHERE category = '" . $conn->real_escape_string($product['category']) . "' 
   AND id != $productId 
   LIMIT 4
@@ -308,7 +317,7 @@ $relatedProducts = $conn->query("
   <div class="breadcrumb-nav">
     <div class="container">
       <a href="index.php">Home</a> / 
-      <a href="products.php">Products</a> / 
+      <a href="products.php"><?php echo ($productType === 'merch') ? 'Merch' : 'Products'; ?></a> / 
       <span><?php echo htmlspecialchars($product['product_name']); ?></span>
     </div>
   </div>
@@ -333,7 +342,7 @@ $relatedProducts = $conn->query("
             <p class="product-description"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
             
             <div class="product-actions mt-4">
-              <a href="checkout.php?id=<?php echo $product['id']; ?>" class="btn btn-vibe">
+              <a href="checkout.php?id=<?php echo $product['id']; ?>&type=<?php echo $productType; ?>" class="btn btn-vibe">
                 <i class="bi bi-bag-check"></i> Buy Now
               </a>
             </div>
@@ -358,12 +367,12 @@ $relatedProducts = $conn->query("
           <?php while ($related = $relatedProducts->fetch_assoc()): ?>
             <div class="col-md-3">
               <div class="product-card">
-                <a href="product_details.php?id=<?php echo $related['id']; ?>" style="text-decoration: none; color: inherit;">
+                <a href="product_details.php?id=<?php echo $related['id']; ?>&type=<?php echo $productType; ?>" style="text-decoration: none; color: inherit;">
                   <img src="<?php echo htmlspecialchars($related['image']); ?>" alt="<?php echo htmlspecialchars($related['product_name']); ?>">
                   <div class="product-card-body">
                     <h5><?php echo htmlspecialchars($related['product_name']); ?></h5>
                     <div class="price">₦<?php echo number_format($related['price'], 2); ?></div>
-                    <a href="product_details.php?id=<?php echo $related['id']; ?>" class="btn btn-sm btn-vibe mt-2">View Details</a>
+                    <a href="product_details.php?id=<?php echo $related['id']; ?>&type=<?php echo $productType; ?>" class="btn btn-sm btn-vibe mt-2">View Details</a>
                   </div>
                 </a>
               </div>

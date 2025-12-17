@@ -44,41 +44,53 @@ include 'assets/config.php'; // database connection
       color: #ffd6f0 !important;
     }
 
-    /* Hero */
-    header.hero {
-      height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      overflow: hidden;
-      text-align: center;
-    }
-    .hero-video {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: brightness(60%);
-      z-index: 0;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-    }
-    .hero h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero p {
-      font-size: 1.2rem;
-    }
+    /* HERO BACKGROUND IMAGE */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* full screen height */
+    background-image: url('IMG-20250509-WA0067.jpg'); /* your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* dark gradient overlay for better readability */
+.hero-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.5)
+    );
+}
+
+/* hero content */
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    max-width: 700px;
+    padding: 0 20px;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
 
     .btn-vibe {
       background: var(--gradient);
@@ -220,24 +232,19 @@ include 'assets/config.php'; // database connection
   </nav>
 
   <!-- Hero Section -->
-  <header class="hero">
- <video autoplay muted loop playsinline class="hero-video">
-    <source src="VID-20251011-WA0057.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-    </video>
-    <div class="hero-content text-center">
-      <h1>3ED.I SOCIETY <br>GOOD VIBES</h1>
-      <p class="lead">Fashion meets Art — express your colors, wear your energy.</p>
-      <a href="/products.php" class="btn btn-vibe mt-3">Explore Collection</a>
+  <div class="hero-section">
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1>Welcome</h1>
+        <p>Where Creative Energy Meets Style & Art.</p>
+        <!-- <a href="projects.php" class="hero-btn">Explore Projects</a> -->
     </div>
-  </header>
+</div>
 
   <!-- Spinning Logo -->
-  <div class="spinning-logo">
+  <!-- <div class="spinning-logo">
     <img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" alt="Good Vibes Logo" />
-  </div>
+  </div> -->
 
   <!-- Our Vibes Section -->
   <section>

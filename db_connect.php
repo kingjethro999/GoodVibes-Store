@@ -2,9 +2,9 @@
 // db_connect.php — handles connection to the Good Vibes database
 
 $servername = "localhost";   // XAMPP server
-$username = "edisocie_root ";          // default username for XAMPP
-$password = "Seun2000*";              // leave empty if you haven't set one
-$dbname = "edisocie_good_vibes";    // your database name
+$username = "root";          // default username for XAMPP
+$password = "";              // leave empty if you haven’t set one
+$dbname = "goodvibes_db";    // your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

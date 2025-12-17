@@ -14,7 +14,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Admin CSS -->
-  <link href="/assets/admin.css" rel="stylesheet">
+  <link href="../assets/admin.css" rel="stylesheet">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -53,15 +53,15 @@
   </nav>
 
   <div class="admin-wrapper d-flex">
-    <!-- Sidebar (left) -->
     <aside class="admin-sidebar">
       <ul class="nav flex-column p-2">
-        <li class="nav-item"><a class="nav-link" href="/admin/dashboard.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="/index.php"><i class="bi bi-shop me-2"></i> Storefront</a></li>
-      <li class="nav-item"><a class="nav-link" href="/admin/products.php"><i class="bi bi-boxes me-2"></i> Products</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/process.php"><i class="bi bi-box-seam me-2"></i> Orders</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/users.php"><i class="bi bi-people me-2"></i> Users</a></li>
-        <li class="nav-item"><a class="nav-link" href="/theme/header.php" target="_blank"><i class="bi bi-code-square me-2"></i> Theme</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.php"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="../index.php"><i class="bi bi-shop me-2"></i> Storefront</a></li>
+      <li class="nav-item"><a class="nav-link" href="products.php"><i class="bi bi-boxes me-2"></i> Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="merch.php"><i class="bi bi-bag me-2"></i> Merch</a></li>
+        <li class="nav-item"><a class="nav-link" href="process.php"><i class="bi bi-box-seam me-2"></i> Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="users.php"><i class="bi bi-people me-2"></i> Users</a></li>
+        <li class="nav-item"><a class="nav-link" href="../theme/header.php" target="_blank"><i class="bi bi-code-square me-2"></i> Theme</a></li>
       </ul>
     </aside>
 
