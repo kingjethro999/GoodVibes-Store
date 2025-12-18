@@ -6,7 +6,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Good Vibes</title>
+  <title>About Us | 3ED.I SOCIETY</title>
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -98,7 +98,7 @@ session_start();
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.php">GOOD VIBES</a>
+      <a class="navbar-brand fw-bold" href="index.php">3ED.I SOCIETY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -140,8 +140,8 @@ session_start();
     <div class="container text-center">
       <h2 class="section-title mb-4">Our Story</h2>
       <p class="px-3">
-        <strong>Good Vibes</strong> is a creative fusion of fashion and art — a movement that celebrates self-expression, color, and individuality.  
-        Founded by <strong>David Inyang (3rdeye)</strong>, a visionary artist and designer, Good Vibes was born out of a passion to blend street energy with artistic elegance.  
+        <strong>3ED.I SOCIETY</strong> is a creative fusion of fashion and art — a movement that celebrates self-expression, color, and individuality.  
+        Founded by <strong>David Inyang (3rdeye)</strong>, a visionary artist and designer, 3ED.I SOCIETY was born out of a passion to blend street energy with artistic elegance.  
         Every collection tells a story — bold, vibrant, and unapologetically original.
       </p>
     </div>
@@ -163,7 +163,7 @@ session_start();
           <div class="card p-4 shadow-sm h-100">
             <i class="bi bi-eye-fill display-4 text-info"></i>
             <h5 class="mt-3">Our Vision</h5>
-            <p>To become a global creative hub where artistic minds and style enthusiasts connect through good vibes and bold expression.</p>
+            <p>To become a global creative hub where artistic minds and style enthusiasts connect through 3ED.I SOCIETY and bold expression.</p>
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@ session_start();
         <div class="card-body">
           <h5 class="card-title">3rdeye</h5>
           <p class="card-text">
-            David Inyang (3rdeye)  is a visionary graffiti artist whose passion for fashion and style, expression, and identity inspired the Good Vibes brand. His creative hand-painting technique ensures every hat is a story worth telling, with style that resonates with authenticity.
+            David Inyang (3rdeye)  is a visionary graffiti artist whose passion for fashion and style, expression, and identity inspired the 3ED.I SOCIETY brand. His creative hand-painting technique ensures every hat is a story worth telling, with style that resonates with authenticity.
           </p>
         </div>
       </div>
@@ -202,7 +202,7 @@ session_start();
   <!-- CTA -->
   <section class="py-5 reveal">
     <div class="container text-center">
-      <h2 class="section-title mb-4">Join the Good Vibes Movement</h2>
+      <h2 class="section-title mb-4">Join the 3ED.I SOCIETY Movement</h2>
       <p>Step into a world of art, color, and creativity. Let your outfit speak your energy.</p>
       <a href="products.php" class="btn btn-lg text-dark fw-bold" style="background: linear-gradient(90deg,var(--magenta),var(--yellow),var(--cyan)); border:none;">Explore Gallery</a>
     </div>
@@ -210,7 +210,7 @@ session_start();
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Good Vibes. Designed by Iyang 3ED. All Rights Reserved.</p>
+    <p>&copy; 2025 3ED.I SOCIETY. Designed by Iyang 3ED. All Rights Reserved.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

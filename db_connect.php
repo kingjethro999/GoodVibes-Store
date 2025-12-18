@@ -1,5 +1,5 @@
 <?php
-// db_connect.php — handles connection to the Good Vibes database
+// db_connect.php — handles connection to the 3ED.I SOCIETY database
 
 $servername = "localhost";   // XAMPP server
 $username = "root";          // default username for XAMPP
@@ -18,5 +18,5 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 // Optional success message for testing only
-// echo "✅ Connected successfully to Good Vibes DB";
+// echo "✅ Connected successfully to 3ED.I SOCIETY DB";
 ?>

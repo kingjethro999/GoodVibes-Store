@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
   <meta charset="utf-8">
-  <title>User Login | Good Vibes</title>
+  <title>User Login | 3ED.I SOCIETY</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body{ background: linear-gradient(135deg,#6a00f4,#ff0099); min-height:100vh; display:flex; align-items:center; justify-content:center; }
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
   <div class="card bg-white">
-    <h4 class="brand mb-3">Good Vibes — User Login</h4>
+    <h4 class="brand mb-3">3ED.I SOCIETY — User Login</h4>
     <?php if($err): ?>
       <div class="alert alert-danger"><?php echo htmlspecialchars($err); ?></div>
     <?php endif; ?>

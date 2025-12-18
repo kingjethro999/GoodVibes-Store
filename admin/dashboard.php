@@ -1,5 +1,5 @@
 <?php
-// dashboard.php - Good Vibes admin overview
+// dashboard.php - 3ED.I SOCIETY admin overview
 session_start();
 require '../db_connect.php';
 
@@ -181,7 +181,7 @@ $recentOrders = $conn->query("
   <div class="row mb-4">
     <div class="col-12">
       <h2 class="mb-0">Dashboard</h2>
-      <p class="text-muted">Overview of sales, orders, and site stats — Good Vibes</p>
+      <p class="text-muted">Overview of sales, orders, and site stats — 3ED.I SOCIETY</p>
     </div>
   </div>
 

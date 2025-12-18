@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-6">
           <label class="form-label">Product Name <span class="text-danger">*</span></label>
           <input type="text" name="product_name" class="form-control" required 
-                 placeholder="e.g. Good Vibes Cap">
+                 placeholder="e.g. 3ED.I SOCIETY Cap">
         </div>
 
         <div class="col-md-3">

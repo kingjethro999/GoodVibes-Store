@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Register | Good Vibes</title>
+  <title>Register | 3ED.I SOCIETY</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body{ background: linear-gradient(135deg,#6a00f4,#8c005a); min-height:100vh; display:flex; align-items:center; justify-content:center; }

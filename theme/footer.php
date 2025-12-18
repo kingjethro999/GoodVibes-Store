@@ -1,12 +1,12 @@
 <?php
-// footer.php - Good Vibes admin footer (include at end of pages)
+// footer.php - 3ED.I SOCIETY admin footer (include at end of pages)
 ?>
     </main> <!-- /admin-main -->
   </div> <!-- /admin-wrapper -->
 
   <footer class="admin-footer text-center py-3">
     <div class="container">
-      <small>© <?php echo date('Y'); ?> Good Vibes. Admin panel. Designed by Iyang 3ED .I</small>
+      <small>© <?php echo date('Y'); ?> 3ED.I SOCIETY. Admin panel. Designed by Iyang 3ED .I</small>
     </div>
   </footer>
 

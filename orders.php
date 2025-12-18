@@ -39,7 +39,7 @@ $totalSpent = $conn->query("SELECT COALESCE(SUM(total_price), 0) as total FROM o
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Orders | Good Vibes</title>
+  <title>My Orders | 3ED.I SOCIETY</title>
   
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -311,7 +311,7 @@ $totalSpent = $conn->query("SELECT COALESCE(SUM(total_price), 0) as total FROM o
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.php">GOOD VIBES</a>
+      <a class="navbar-brand fw-bold" href="index.php">3ED.I SOCIETY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -462,7 +462,7 @@ $totalSpent = $conn->query("SELECT COALESCE(SUM(total_price), 0) as total FROM o
         <a href="#"><i class="bi bi-tiktok"></i></a>
         <a href="#"><i class="bi bi-twitter-x"></i></a>
       </div>
-      <p>&copy; <?php echo date('Y'); ?> Good Vibes. All Rights Reserved.</p>
+      <p>&copy; <?php echo date('Y'); ?> 3ED.I SOCIETY. All Rights Reserved.</p>
     </div>
   </footer>
 

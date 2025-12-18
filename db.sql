@@ -88,6 +88,6 @@ CREATE TABLE merch (
 -- Example Merch Items
 INSERT INTO merch (product_name, category, description, price, image)
 VALUES
-('Good Vibes Cap', 'Accessories', 'Stylish embroidered cap with Good Vibes logo.', 5500, 'uploads/hoodie.jpg'),
+('3ED.I SOCIETY Cap', 'Accessories', 'Stylish embroidered cap with 3ED.I SOCIETY logo.', 5500, 'uploads/hoodie.jpg'),
 ('Vibe Sticker Pack', 'Accessories', 'Set of 10 high-quality vinyl stickers.', 2000, 'uploads/stickers.jpg'),
-('Good Vibes Mug', 'Accessories', 'Ceramic coffee mug with vibrant design.', 4500, 'uploads/mug.jpg');
+('3ED.I SOCIETY Mug', 'Accessories', 'Ceramic coffee mug with vibrant design.', 4500, 'uploads/mug.jpg');

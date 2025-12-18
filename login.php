@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Vibes | Login</title>
+  <title>3ED.I SOCIETY | Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
   <div class="login-container">
-    <h2>Good Vibes Login</h2>
+    <h2>3ED.I SOCIETY Login</h2>
 
     <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
 

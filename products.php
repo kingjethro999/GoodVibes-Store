@@ -16,7 +16,7 @@ $merchShow = ($activeTab === 'merch') ? 'show active' : '';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products | Good Vibes</title>
+  <title>Products | 3ED.I SOCIETY</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
   <style>
@@ -208,7 +208,7 @@ $merchShow = ($activeTab === 'merch') ? 'show active' : '';
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="/index.php">Good Vibes</a>
+      <a class="navbar-brand fw-bold" href="/index.php">3ED.I SOCIETY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -316,7 +316,7 @@ $merchShow = ($activeTab === 'merch') ? 'show active' : '';
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Good Vibes. All Rights Reserved.</p>
+    <p>&copy; 2025 3ED.I SOCIETY. All Rights Reserved.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

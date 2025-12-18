@@ -1,6 +1,6 @@
-## Good Vibes (3ED.I Society Store)
+## 3ED.I SOCIETY (3ED.I Society Store)
 
-E‑commerce web app for **3ED.I Society / Good Vibes** built with **PHP + MySQL**.  
+E‑commerce web app for **3ED.I Society / 3ED.I SOCIETY** built with **PHP + MySQL**.  
 Users can browse products, place orders, pay via **Cash on Delivery** or **Bank Transfer** (with receipt upload), and track orders.  
 Admins can manage products, users, and orders, and approve payments from uploaded receipts.
 

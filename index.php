@@ -7,7 +7,7 @@ include 'assets/config.php'; // database connection
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Good Vibes | Fashion & Art</title>
+  <title>3ED.I SOCIETY | Fashion & Art</title>
 
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -202,7 +202,7 @@ include 'assets/config.php'; // database connection
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#">GOOD VIBES</a>
+      <a class="navbar-brand fw-bold" href="#">3ED.I SOCIETY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -243,7 +243,7 @@ include 'assets/config.php'; // database connection
 
   <!-- Spinning Logo -->
   <!-- <div class="spinning-logo">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" alt="Good Vibes Logo" />
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" alt="3ED.I SOCIETY Logo" />
   </div> -->
 
   <!-- Our Vibes Section -->
@@ -306,7 +306,7 @@ include 'assets/config.php'; // database connection
 
   <!-- Quote Section -->
   <section class="quote-section">
-    “Good Vibes Only ✨”
+    “3ED.I SOCIETY Only ✨”
   </section>
 
   <!-- Footer -->
@@ -318,7 +318,7 @@ include 'assets/config.php'; // database connection
         <a href="#"><i class="bi bi-tiktok"></i></a>
         <a href="#"><i class="bi bi-twitter-x"></i></a>
       </div>
-      <p>&copy; <?php echo date('Y'); ?> Good Vibes. All Rights Reserved.</p>
+      <p>&copy; <?php echo date('Y'); ?> 3ED.I SOCIETY. All Rights Reserved.</p>
     </div>
   </footer>
 

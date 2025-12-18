@@ -139,7 +139,7 @@ $grandTotal = $subtotal + $shippingCost;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout | Good Vibes</title>
+  <title>Checkout | 3ED.I SOCIETY</title>
   
   <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -339,7 +339,7 @@ $grandTotal = $subtotal + $shippingCost;
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.php">GOOD VIBES</a>
+      <a class="navbar-brand fw-bold" href="index.php">3ED.I SOCIETY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
