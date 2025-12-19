@@ -1,10 +1,10 @@
 <?php
 // db_connect.php — handles connection to the 3ED.I SOCIETY database
 
-$servername = "localhost";   // XAMPP server
-$username = "root";          // default username for XAMPP
-$password = "";              // leave empty if you haven’t set one
-$dbname = "goodvibes_db";    // your database name
+$servername = "s4946.fra1.stableserver.net";   // Production server
+$username = "edisocie_root";          // Production username
+$password = "Seun2000*";              // Production password
+$dbname = "edisocie_good_vibes";      // Production database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
