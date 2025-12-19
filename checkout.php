@@ -520,15 +520,7 @@ $grandTotal = $subtotal + $shippingCost;
               </div>
             </div>
             
-            <?php if ($grandTotal >= 10000): ?>
-              <div class="alert alert-success mt-3">
-                <i class="bi bi-check-circle"></i> Free Shipping Applied!
-              </div>
-            <?php else: ?>
-              <div class="alert alert-info mt-3">
-                <i class="bi bi-info-circle"></i> Add ₦<?php echo number_format(10000 - $grandTotal, 2); ?> more for free shipping!
-              </div>
-            <?php endif; ?>
+
 
             <div class="mt-4">
               <p class="small text-muted"><i class="bi bi-shield-check"></i> Secure checkout</p>

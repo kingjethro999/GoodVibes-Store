@@ -350,7 +350,6 @@ $relatedProducts = $conn->query("
             <div class="product-meta mt-5">
               <p><i class="bi bi-calendar"></i> <strong>Added:</strong> <?php echo date('F j, Y', strtotime($product['created_at'])); ?></p>
               <p><i class="bi bi-shield-check"></i> <strong>Quality Guaranteed</strong></p>
-              <p><i class="bi bi-truck"></i> <strong>Free Shipping</strong> on orders over ₦10,000</p>
             </div>
           </div>
         </div>
