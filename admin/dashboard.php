@@ -279,7 +279,7 @@ $recentOrders = $conn->query("
 </div>
 
 <h2 class="mt-5">Add New Product</h2>
-<form action="../add_product.php" method="POST" enctype="multipart/form-data" class="mt-3">
+<form action="add_product.php" method="POST" enctype="multipart/form-data" class="mt-3">
   <div class="row g-3">
     <div class="col-md-6">
       <label>Product Name:</label>

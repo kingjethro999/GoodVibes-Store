@@ -181,7 +181,7 @@ $products = $conn->query("SELECT id, product_name, category, price, created_at F
   <div class="gv-card">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="mb-0">All Products</h5>
-      <a href="../add_product.php" class="btn btn-success btn-sm">
+      <a href="add_product.php" class="btn btn-success btn-sm">
         <i class="bi bi-plus-lg"></i> Add New Product
       </a>
     </div>
