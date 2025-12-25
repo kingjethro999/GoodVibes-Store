@@ -41,6 +41,7 @@ CREATE TABLE orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   product_id INT,
+  product_type VARCHAR(20) DEFAULT 'product',
   quantity INT DEFAULT 1,
   total_price DECIMAL(10,2),
   shipping_address TEXT,
@@ -52,8 +53,7 @@ CREATE TABLE orders (
   shipping_name2 VARCHAR(100),
   order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   status ENUM('pending','completed','cancelled') DEFAULT 'pending',
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (product_id) REFERENCES products(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Table for Feedback / Contact Messages

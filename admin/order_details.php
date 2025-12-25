@@ -56,6 +56,17 @@ if ($orderId <= 0) {
   exit;
 }
 
+// Fetch order details to determine product type
+$orderInfo = $conn->query("SELECT product_type FROM orders WHERE id = $orderId")->fetch_assoc();
+
+if (!$orderInfo) {
+  header('Location: process.php');
+  exit;
+}
+
+$productType = $orderInfo['product_type'] ?? 'product';
+$productTable = ($productType === 'merch') ? 'merch' : 'products';
+
 // Fetch order details with product, user, and receipt info
 $order = $conn->query("
   SELECT o.*, u.username as customer_name, u.email as customer_email,
@@ -63,7 +74,7 @@ $order = $conn->query("
          r.receipt_image, r.created_at as receipt_date
   FROM orders o
   LEFT JOIN users u ON o.user_id = u.id
-  LEFT JOIN products p ON o.product_id = p.id
+  LEFT JOIN $productTable p ON o.product_id = p.id
   LEFT JOIN reciepts r ON o.id = r.order_id
   WHERE o.id = $orderId
 ")->fetch_assoc();

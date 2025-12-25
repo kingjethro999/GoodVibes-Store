@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $category_name = trim($_POST['category']);
   $description = trim($_POST['description']);
 
-  // Ensure uploads dir
-  $uploadDir = __DIR__ . '/uploads/';
+  // Ensure uploads dir (parent directory)
+  $uploadDir = __DIR__ . '/../uploads/';
   if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
   // Handle file upload

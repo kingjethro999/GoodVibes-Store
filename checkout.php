@@ -81,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $shippingCost = $totalPrice >= 10000 ? 0 : 500; // Free shipping over ₦10,000
     $grandTotal = $totalPrice + $shippingCost;
     
-    // Insert order with all shipping fields
-    $insertOrder = $conn->prepare("INSERT INTO orders (user_id, product_id, quantity, total_price, shipping_address, shipping_name, shipping_phone, shipping_email, shipping_name2, shipping_phone2, shipping_email2, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
-    $insertOrder->bind_param('iiidsssssss', $userId, $productId, $quantity, $grandTotal, $shippingAddress, $shippingName, $shippingPhone, $shippingEmail, $shippingName2, $shippingPhone2, $shippingEmail2);
+    // Insert order with all shipping fields and product_type
+    $insertOrder = $conn->prepare("INSERT INTO orders (user_id, product_id, product_type, quantity, total_price, shipping_address, shipping_name, shipping_phone, shipping_email, shipping_name2, shipping_phone2, shipping_email2, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
+    $insertOrder->bind_param('iisidssssss', $userId, $productId, $productType, $quantity, $grandTotal, $shippingAddress, $shippingName, $shippingPhone, $shippingEmail, $shippingName2, $shippingPhone2, $shippingEmail2);
     
     if ($insertOrder->execute()) {
       $orderId = $insertOrder->insert_id;

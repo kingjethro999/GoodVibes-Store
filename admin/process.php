@@ -39,12 +39,24 @@ if ($statusFilter !== 'all') {
 
 $orders = $conn->query("
   SELECT o.*, u.username as customer_name, u.email as customer_email,
-         p.product_name, p.image
+         p.product_name, p.image, 'product' as item_type
   FROM orders o
   LEFT JOIN users u ON o.user_id = u.id
-  LEFT JOIN products p ON o.product_id = p.id
-  $whereClause
-  ORDER BY o.order_date DESC
+  LEFT JOIN products p ON o.product_id = p.id AND (o.product_type = 'product' OR o.product_type IS NULL)
+  WHERE o.product_type = 'product' OR o.product_type IS NULL
+  " . ($statusFilter !== 'all' ? "AND o.status = '$statusFilter'" : "") . "
+  
+  UNION
+  
+  SELECT o.*, u.username as customer_name, u.email as customer_email,
+         m.product_name, m.image, 'merch' as item_type
+  FROM orders o
+  LEFT JOIN users u ON o.user_id = u.id
+  LEFT JOIN merch m ON o.product_id = m.id AND o.product_type = 'merch'
+  WHERE o.product_type = 'merch'
+  " . ($statusFilter !== 'all' ? "AND o.status = '$statusFilter'" : "") . "
+  
+  ORDER BY order_date DESC
 ");
 ?>
 <?php include __DIR__ . '/../theme/header.php'; ?>
