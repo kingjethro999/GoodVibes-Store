@@ -13,6 +13,76 @@ $error = '';
 $success = '';
 $editProduct = null;
 
+// Handle create new product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_product'])) {
+  $name = trim($_POST['product_name']);
+  $price = floatval($_POST['price']);
+  $category_name = trim($_POST['category']);
+  $description = trim($_POST['description']);
+
+  // Ensure uploads dir (parent directory)
+  $uploadDir = __DIR__ . '/../uploads/';
+  if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+  // Handle file upload
+  if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+    $error = 'Image upload failed.';
+  } else {
+    $tmp = $_FILES['image']['tmp_name'];
+    $origName = basename($_FILES['image']['name']);
+    $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+    $allowed = ['jpg','jpeg','png','webp','gif'];
+    
+    if (!in_array($ext, $allowed)) {
+      $error = 'Invalid image type.';
+    } else {
+      $safe = preg_replace("/[^A-Za-z0-9\\-]/", '-', pathinfo($origName, PATHINFO_FILENAME));
+      $filename = $safe . '-' . time() . '.' . $ext;
+      $dest = $uploadDir . $filename;
+      
+      if (!move_uploaded_file($tmp, $dest)) {
+        $error = 'Could not move upload.';
+      } else {
+        $dbPath = 'uploads/' . $filename;
+        
+        // Ensure category exists (or create)
+        $catId = null;
+        $stmt = $conn->prepare("SELECT id FROM categories WHERE category_name = ? LIMIT 1");
+        $stmt->bind_param('s', $category_name);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        if ($res && $res->num_rows === 1) {
+          $cat = $res->fetch_assoc();
+          $catId = $cat['id'];
+        } else {
+          $ins = $conn->prepare("INSERT INTO categories (category_name) VALUES (?)");
+          $ins->bind_param('s', $category_name);
+          $ins->execute();
+          $catId = $ins->insert_id;
+          $ins->close();
+        }
+        $stmt->close();
+        
+        // Insert product
+        $insert = $conn->prepare("INSERT INTO products (product_name, category_id, price, description, image) VALUES (?,?,?,?,?)");
+        $insert->bind_param('sidss', $name, $catId, $price, $description, $dbPath);
+        if ($insert->execute()) {
+          $insert->close();
+          header('Location: products.php?created=1');
+          exit;
+        } else {
+          $error = "Database error: " . $conn->error;
+        }
+      }
+    }
+  }
+}
+
+// Success message from redirect
+if (isset($_GET['created'])) {
+  $success = "Product created successfully.";
+}
+
 // Handle delete product
 if (isset($_GET['delete'])) {
   $productId = intval($_GET['delete']);
@@ -21,12 +91,19 @@ if (isset($_GET['delete'])) {
     $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
     $stmt->bind_param('i', $productId);
     if ($stmt->execute()) {
-      $success = "Product deleted successfully.";
+      $stmt->close();
+      header('Location: products.php?deleted=1');
+      exit;
     } else {
       $error = "Failed to delete product.";
     }
     $stmt->close();
   }
+}
+
+// Success message from redirect
+if (isset($_GET['deleted'])) {
+  $success = "Product deleted successfully.";
 }
 
 // Handle update product
@@ -105,6 +182,10 @@ $products = $conn->query("SELECT id, product_name, category, price, created_at F
   }
 
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .gv-card form .row.g-3 > [class*="col-"] {
       flex: 0 0 100%;
       max-width: 100%;
@@ -141,6 +222,51 @@ $products = $conn->query("SELECT id, product_name, category, price, created_at F
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
   <?php endif; ?>
+
+  <!-- Create New Product Form -->
+  <div class="gv-card">
+    <h5 class="mb-3">Create New Product</h5>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Product Name <span class="text-danger">*</span></label>
+          <input type="text" name="product_name" class="form-control" required 
+                 placeholder="e.g. Vibe Street Hoodie">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Category</label>
+          <input type="text" name="category" class="form-control" 
+                 placeholder="e.g. Fashion">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Price (₦) <span class="text-danger">*</span></label>
+          <input type="number" step="0.01" name="price" class="form-control" required 
+                 placeholder="0.00">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Description</label>
+          <textarea name="description" rows="3" class="form-control" 
+                    placeholder="Describe the product..."></textarea>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Product Image <span class="text-danger">*</span></label>
+          <input type="file" name="image" class="form-control" accept="image/*" required>
+          <small class="text-muted">Accepted formats: JPG, PNG, WEBP, GIF</small>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" name="create_product" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Create Product
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
 
   <!-- Edit Product Form -->
   <?php if ($editProduct): ?>
@@ -181,9 +307,6 @@ $products = $conn->query("SELECT id, product_name, category, price, created_at F
   <div class="gv-card">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="mb-0">All Products</h5>
-      <a href="add_product.php" class="btn btn-success btn-sm">
-        <i class="bi bi-plus-lg"></i> Add New Product
-      </a>
     </div>
 
     <div class="table-responsive">

@@ -118,6 +118,10 @@ $orders = $conn->query("
 
   /* Responsive improvements */
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .filter-badge {
       padding: 6px 12px;
       font-size: 0.875rem;

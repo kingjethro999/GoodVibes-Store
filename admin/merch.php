@@ -13,6 +13,59 @@ $error = '';
 $success = '';
 $editMerch = null;
 
+// Handle create new merch
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_merch'])) {
+  $name = trim($_POST['product_name']);
+  $price = floatval($_POST['price']);
+  $category = trim($_POST['category']);
+  $description = trim($_POST['description']);
+
+  // Ensure uploads dir (parent directory)
+  $uploadDir = __DIR__ . '/../uploads/';
+  if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+  // Handle file upload
+  if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+    $error = 'Image upload failed.';
+  } else {
+    $tmp = $_FILES['image']['tmp_name'];
+    $origName = basename($_FILES['image']['name']);
+    $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+    $allowed = ['jpg','jpeg','png','webp','gif'];
+    
+    if (!in_array($ext, $allowed)) {
+      $error = 'Invalid image type.';
+    } else {
+      $safe = preg_replace("/[^A-Za-z0-9\\-]/", '-', pathinfo($origName, PATHINFO_FILENAME));
+      $filename = $safe . '-' . time() . '.' . $ext;
+      $dest = $uploadDir . $filename;
+      
+      if (!move_uploaded_file($tmp, $dest)) {
+        $error = 'Could not move upload.';
+      } else {
+        $dbPath = 'uploads/' . $filename;
+        
+        // Insert merch
+        $insert = $conn->prepare("INSERT INTO merch (product_name, category, price, description, image) VALUES (?, ?, ?, ?, ?)");
+        $insert->bind_param('ssdss', $name, $category, $price, $description, $dbPath);
+        if ($insert->execute()) {
+          $insert->close();
+          header('Location: merch.php?created=1');
+          exit;
+        } else {
+          $error = "Database error: " . $conn->error;
+        }
+      }
+    }
+  }
+}
+
+// Success message from redirect
+if (isset($_GET['created'])) {
+  $success = "Merch item created successfully.";
+}
+
+
 // Handle delete merch
 if (isset($_GET['delete'])) {
   $merchId = intval($_GET['delete']);
@@ -21,12 +74,19 @@ if (isset($_GET['delete'])) {
     $stmt = $conn->prepare("DELETE FROM merch WHERE id = ?");
     $stmt->bind_param('i', $merchId);
     if ($stmt->execute()) {
-      $success = "Merch item deleted successfully.";
+      $stmt->close();
+      header('Location: merch.php?deleted=1');
+      exit;
     } else {
       $error = "Failed to delete merch item.";
     }
     $stmt->close();
   }
+}
+
+// Success message from redirect
+if (isset($_GET['deleted'])) {
+  $success = "Merch item deleted successfully.";
 }
 
 // Handle update merch
@@ -105,6 +165,10 @@ $merchItems = $conn->query("SELECT id, product_name, category, price, created_at
   }
 
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .gv-card form .row.g-3 > [class*="col-"] {
       flex: 0 0 100%;
       max-width: 100%;
@@ -141,6 +205,51 @@ $merchItems = $conn->query("SELECT id, product_name, category, price, created_at
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
   <?php endif; ?>
+
+  <!-- Create New Merch Form -->
+  <div class="gv-card">
+    <h5 class="mb-3">Create New Merch</h5>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Product Name <span class="text-danger">*</span></label>
+          <input type="text" name="product_name" class="form-control" required 
+                 placeholder="e.g. 3ED.I SOCIETY Cap">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Category</label>
+          <input type="text" name="category" class="form-control" 
+                 placeholder="e.g. Accessories">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Price (₦) <span class="text-danger">*</span></label>
+          <input type="number" step="0.01" name="price" class="form-control" required 
+                 placeholder="0.00">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Description</label>
+          <textarea name="description" rows="3" class="form-control" 
+                    placeholder="Describe the merch item..."></textarea>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Product Image <span class="text-danger">*</span></label>
+          <input type="file" name="image" class="form-control" accept="image/*" required>
+          <small class="text-muted">Accepted formats: JPG, PNG, WEBP, GIF</small>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" name="create_merch" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Create Merch
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
 
   <!-- Edit Merch Form -->
   <?php if ($editMerch): ?>
