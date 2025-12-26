@@ -130,6 +130,10 @@ $users = $conn->query("SELECT id, username, email, role, created_at FROM users O
 
   /* Responsive improvements */
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .gv-card form .row.g-3 > [class*="col-"] {
       flex: 0 0 100%;
       max-width: 100%;
