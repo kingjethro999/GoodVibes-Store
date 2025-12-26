@@ -3,5 +3,7 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/edisocie/public_html/
     - /bin/mkdir -p $DEPLOYPATH/uploads
+    - /bin/mkdir -p $DEPLOYPATH/uploads/receipts
     - /usr/bin/rsync -av --exclude='uploads' --exclude='.git' --exclude='.cpanel.yml' --delete ./ $DEPLOYPATH/
     - /bin/cp .htaccess $DEPLOYPATH 2>/dev/null || true
+    - /bin/chmod -R 777 $DEPLOYPATH
