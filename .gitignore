@@ -7,7 +7,6 @@ uploads/receipts/*
 !uploads/receipts/.gitkeep
 
 # IDE and editor files
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -27,3 +26,7 @@ Thumbs.db
 # Temp files
 *.tmp
 *.bak
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore

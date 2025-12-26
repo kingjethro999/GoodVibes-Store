@@ -157,8 +157,20 @@ $recentOrders = $conn->query("
 
   /* Responsive improvements */
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .gv-stats {
       grid-template-columns: 1fr;
+    }
+
+    .gv-stat {
+      padding: 15px;
+    }
+
+    form {
+      padding: 15px;
     }
 
     form .row.g-3 > [class*="col-"] {
