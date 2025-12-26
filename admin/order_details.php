@@ -177,6 +177,10 @@ if (!$order) {
   }
 
   @media (max-width: 768px) {
+    .gv-card {
+      padding: 15px;
+    }
+
     .order-detail-header {
       padding-bottom: 15px;
       margin-bottom: 20px;
@@ -189,10 +193,6 @@ if (!$order) {
     .status-badge {
       padding: 8px 16px;
       font-size: 0.875rem;
-    }
-
-    .gv-card {
-      padding: 20px;
     }
 
     .receipt-preview {
